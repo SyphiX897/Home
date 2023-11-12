@@ -1,0 +1,4 @@
+home_limit: 3
+home_cooldown: 2
+cancel_teleport_on_move: true
+players_home: {}
