@@ -156,20 +156,37 @@ public class HomeCommand implements CommandExecutor {
 
         int cooldown = config.getInt("home_cooldown");
 
+        Location playerLocation = player.getLocation().clone();
+
         player.sendMessage(toComponent(String.format("<gradient:dark_green:green>You will be teleported in <yellow>%d</yellow> seconds, <yellow>please don't move!", cooldown)));
         HomeManager.IS_IN_TELEPORT.add(playerUUID);
+
+        if (config.getBoolean("cancel_teleport_on_move")) {
+            Bukkit.getScheduler().runTaskTimer(Home.getInstance(), task -> {
+                if (player.getLocation().distance(playerLocation) >= 1 && HomeManager.IS_IN_TELEPORT.contains(playerUUID)) {
+                    task.cancel();
+                    HomeManager.IS_IN_TELEPORT.remove(playerUUID);
+                    player.sendMessage(toComponent("<gradient:dark_red:red>You moved, Teleportation process canceled!"));
+                }
+            }, 1, 1);
+        }
+
         Bukkit.getScheduler().runTaskLater(Home.getInstance(), task -> {
             if (HomeManager.IS_IN_TELEPORT.contains(playerUUID)) {
                 player.teleport(homeLocation);
-                return;
+                HomeManager.IS_IN_TELEPORT.remove(playerUUID);
             }
-            player.sendMessage(toComponent("<gradient:dark_red:red>You moved, Teleportation process canceled!"));
         }, (cooldown * 20L));
     }
     public void deleteHome(Player player, String homeName) {
         UUID playerUUID = player.getUniqueId();
 
         ConfigurationSection homesSection = getSection(rootSectionName, playerUUID.toString(), "homes");
+
+        if (homesSection == null) {
+            player.sendMessage(toComponent("<gradient:dark_red:red>This home doesn't exist!"));
+            return;
+        }
 
         if (sectionIsNotExist(homesSection.getConfigurationSection(homeName), player, "<gradient:dark_red:red>This home doesn't exist!")) return;
 
@@ -235,7 +252,7 @@ public class HomeCommand implements CommandExecutor {
     }
     public boolean hasPermission(Player player, String permission) {
         if (!player.hasPermission("home." + permission)) {
-            player.sendMessage(toComponent("<gradient:dark_red:red>This command doesn't exist!"));
+            player.sendMessage(toComponent("<gradient:dark_red:red>You dont have permission to use this command!"));
             return true;
         }
         return false;

@@ -1,7 +1,7 @@
 name: Home
 version: '${version}'
 main: ir.syphix.home.Home
-api-version: '1.20'
+api-version: '1.17'
 commands:
   Home:
     description: Simple home plugin

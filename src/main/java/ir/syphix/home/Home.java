@@ -1,7 +1,6 @@
 package ir.syphix.home;
 
 import ir.syphix.home.command.HomeCommand;
-import ir.syphix.home.listener.PlayerMoveListener;
 import ir.syphix.home.utils.HomeTabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,9 +18,6 @@ public final class Home extends JavaPlugin {
         saveDefaultConfig();
         getCommand("Home").setExecutor(new HomeCommand());
         getCommand("Home").setTabCompleter(new HomeTabCompleter());
-        if (getConfig().getBoolean("cancel_teleport_on_move")) {
-            getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
-        }
     }
 
     @Override
