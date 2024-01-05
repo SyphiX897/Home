@@ -14,6 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -156,24 +158,39 @@ public class HomeCommand implements CommandExecutor {
 
         int cooldown = config.getInt("home_cooldown");
 
-        Location playerLocation = player.getLocation().clone();
 
         player.sendMessage(toComponent(String.format("<gradient:dark_green:green>You will be teleported in <yellow>%d</yellow> seconds, <yellow>please don't move!", cooldown)));
         HomeManager.IS_IN_TELEPORT.add(playerUUID);
 
+        Location playerLocation = player.getLocation().clone();
+
+        BukkitTask teleportTask;
         if (config.getBoolean("cancel_teleport_on_move")) {
-            Bukkit.getScheduler().runTaskTimer(Home.getInstance(), task -> {
-                if (player.getLocation().distance(playerLocation) >= 1 && HomeManager.IS_IN_TELEPORT.contains(playerUUID)) {
-                    task.cancel();
-                    HomeManager.IS_IN_TELEPORT.remove(playerUUID);
-                    player.sendMessage(toComponent("<gradient:dark_red:red>You moved, Teleportation process canceled!"));
+            teleportTask = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (!HomeManager.IS_IN_TELEPORT.contains(playerUUID)) {
+                        cancel();
+                        return;
+                    }
+
+                    if (player.getLocation().distance(playerLocation) >= 1) {
+                        cancel();
+                        HomeManager.IS_IN_TELEPORT.remove(playerUUID);
+                        player.sendMessage(toComponent("<gradient:dark_red:red>You moved, Teleportation process canceled!"));
+                    }
                 }
-            }, 1, 1);
+            }.runTaskTimer(Home.getInstance(), 1, 1);
+        } else {
+            teleportTask = null;
         }
 
         Bukkit.getScheduler().runTaskLater(Home.getInstance(), task -> {
             if (HomeManager.IS_IN_TELEPORT.contains(playerUUID)) {
                 player.teleport(homeLocation);
+                if (teleportTask != null) {
+                    teleportTask.cancel();
+                }
                 HomeManager.IS_IN_TELEPORT.remove(playerUUID);
             }
         }, (cooldown * 20L));
