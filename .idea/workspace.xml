@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ad86854-d1c3-42d6-abc5-ed5279384447" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Home.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Home.main.iml" afterDir="false" />
+    <list default="true" id="8ad86854-d1c3-42d6-abc5-ed5279384447" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/syphix/home/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/syphix/home/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/syphix/home/command/HomeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/syphix/home/command/HomeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/syphix/home/listener/PlayerMoveListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +45,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -213,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699771514979</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix some bugs&#10;Teleport cancel process will now work correctly">
+      <option name="closed" value="true" />
+      <created>1704454668279</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704454668279</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -222,7 +226,8 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="Fix some bugs&#10;Teleport cancel process will now work correctly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix some bugs&#10;Teleport cancel process will now work correctly" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
